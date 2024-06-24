@@ -19,4 +19,10 @@
     <PackageReference Include="Selenium.WebDriver" Version="4.22.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Loader">
+      <HintPath>..\Loader\bin\Debug\Loader.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

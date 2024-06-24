@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Loader;
 namespace DonderHiroba
 {
 	/// <summary>
@@ -23,7 +24,8 @@ namespace DonderHiroba
 			if(File.Exists("user.dat") == false) { return; }
 			var sr = new StreamReader("user.dat");
 			this.MailBox.Text = sr.ReadLine();
-			int levelBit = sr.Read();
+			int levelBit;
+			Int32.TryParse(sr.ReadLine(), out levelBit);
 			sr.Close();
 			this.levelBit0.IsChecked = (levelBit & 1) == 1;
 			this.levelBit1.IsChecked = (levelBit & 2) == 2;
@@ -49,12 +51,13 @@ namespace DonderHiroba
 				levelBit.ToString(),
 				this.FileBox.Text
 			};
-
-			Process.Start("Get.exe", args);
+			Hide();
 			var sw = new StreamWriter("user.dat", false, Encoding.UTF8);
 			sw.WriteLine(this.MailBox.Text);
-			sw.Write(levelBit);
+			sw.Write(levelBit.ToString());
 			sw.Close();
+			Loader.Load.Main(args);
+			//Process.Start("Get.exe", args);
 			Close();
 
 		}
